@@ -4,34 +4,34 @@
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
+
 // Assign 0-1 as Rock, 1-2 as Paper, 2-3 as Scissors and log computer's choice
 function computerChoice() {
     let computerChoice = getRandomInt();
     
     switch (computerChoice) {
         case 0:
-        computerChoice = "rock";
-        console.log('Computer Selects: Rock');
-        return "rock";
-        break;
+            computerChoice = "rock";
+            console.log('Computer Selects: Rock');
+            return "rock";
+            break;
 
         case 1:
-        computerChoice = "paper";
-        console.log('Computer Selects: Paper');
-        return "paper";
-        break;
+            computerChoice = "paper";
+            console.log('Computer Selects: Paper');
+            return "paper";
+            break;
 
         case 2:
-        computerChoice = "scissors";
-        console.log('Computer Selects: Scissors');
-        return "scissors";
-        break;
+            computerChoice = "scissors";
+            console.log('Computer Selects: Scissors');
+            return "scissors";
+            break;
 
         default: // Added to alert to and help debug unexpected result of computer selection
-        console.log('Computer was unable to make a selection');
-        break;
+            console.log('Computer was unable to make a selection');
+            break;
     }
-
 }
 
 computerChoice(); // **DELETE** calling function while developing to test computer selection
@@ -41,10 +41,40 @@ computerChoice(); // **DELETE** calling function while developing to test comput
 // -- Human Choice Logic - getHumanChoice
 
 // Prompt user for a selection
-// Declare variable for player's choice
-// confirm string entered is a valid choice
-// Prompt again if invalid
-// Log Player's choice
+function getPlayerSelection() {
+    return prompt('Make your selection; Rock, Paper, or Scissors?');
+}
+// confirm string entered is a valid choice and log playerSelection
+function getHumanChoice() {
+    let playerSelection = getPlayerSelection().toLowerCase();
+
+    switch (playerSelection) {
+        case 'rock':
+            playerSelection = 'rock';
+            console.log('Player Selects: Rock');
+            return 'rock';
+            break;
+
+        case 'paper':
+            playerSelection = 'paper';
+            console.log('Player Selects: Paper');
+            return 'paper';
+            break;
+
+        case 'scissors':
+            playerSelection = 'scissors'
+            console.log('Player Selects: Scissors');
+            return 'scissors';
+            break;
+
+        default:    // Prompt again if invalid
+            alert(`"${playerSelection}" is not a valid choice. Please try again picking Rock, Paper, or Scissors.`);
+            console.log(`User entered: "${playerSelection}" which is not a valid choice.`);
+            getHumanChoice(); // ??? Should this repeat getHumanChoice function or keep separate ???
+            break;
+    }
+}
+getHumanChoice(); // **DELETE** calling function while developing to test human selection
 
 
 
