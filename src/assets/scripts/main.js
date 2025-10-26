@@ -1,9 +1,40 @@
 // -- Computer Choice Logic - getComputerChoice
 
-// Get random number between 0 and 3.
-// Rounded down to interger
-// Assign 0-1 as Rock, 1-2 as Paper, 2-3 as Scissors
-// Log Computer's choice
+// Get random number between 0 and 3 Rounded down to integer
+function getRandomInt() {
+    return Math.floor(Math.random() * 3);
+}
+// Assign 0-1 as Rock, 1-2 as Paper, 2-3 as Scissors and log computer's choice
+function computerChoice() {
+    let computerChoice = getRandomInt();
+    
+    switch (computerChoice) {
+        case 0:
+        computerChoice = "rock";
+        console.log('Computer Selects: Rock');
+        return "rock";
+        break;
+
+        case 1:
+        computerChoice = "paper";
+        console.log('Computer Selects: Paper');
+        return "paper";
+        break;
+
+        case 2:
+        computerChoice = "scissors";
+        console.log('Computer Selects: Scissors');
+        return "scissors";
+        break;
+
+        default: // Added to alert to and help debug unexpected result of computer selection
+        console.log('Computer was unable to make a selection');
+        break;
+    }
+
+}
+
+computerChoice(); // **DELETE** calling function while developing to test computer selection
 
 
 
