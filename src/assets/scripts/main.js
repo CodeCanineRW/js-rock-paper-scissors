@@ -6,7 +6,7 @@ function getRandomInt() {
 }
 
 // Assign 0-1 as Rock, 1-2 as Paper, 2-3 as Scissors and log computer's choice
-function computerChoice() {
+function getComputerChoice() {
     let computerChoice = getRandomInt();
     
     switch (computerChoice) {
@@ -34,7 +34,7 @@ function computerChoice() {
     }
 }
 
-computerChoice(); // **DELETE** calling function while developing to test computer selection
+// getComputerChoice(); // **DELETE** calling function while developing to test computer selection
 
 
 
@@ -46,7 +46,7 @@ function getPlayerSelection() {
 }
 // confirm string entered is a valid choice and log playerSelection
 function getHumanChoice() {
-    let playerSelection = getPlayerSelection().toLowerCase();
+    let playerSelection = getPlayerSelection().toLowerCase(); // Allow human choice to be case insensitive
 
     switch (playerSelection) {
         case 'rock':
@@ -74,28 +74,63 @@ function getHumanChoice() {
             break;
     }
 }
-getHumanChoice(); // **DELETE** calling function while developing to test human selection
+// getHumanChoice(); // **DELETE** calling function while developing to test human selection
 
 
 
 // -- Score Keeping Logic
 
 // Declare variable for Computer's score - computerScore
+let computerScore = 0;
 // Declare variable for Human's score - humanScore
+let humanScore = 0;
 // Start game with both values at 0
 
 
 
 // -- Gameplay Logic, Single Round - playRound(humanChoice, computerChoice)
 
-// Allow human and computer choices to be case insensitive
 // Compare selections to determine game result
 // Log round result with win or lose message
 // Increment score per round results
 
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        roundTies();
+    } else if (humanChoice === 'rock' && computerChoice === 'paper') {
+        roundComputer();
+    } else if (humanChoice === 'rock' && computerChoice === 'scissors') {
+        roundHuman();
+    } else if (humanChoice === 'paper' && computerChoice === 'rock') {
+        roundHuman();
+    } else if (humanChoice === 'paper' && computerChoice === 'scissors') {
+        roundComputer();
+    } else if (humanChoice === 'scissors' && computerChoice === 'rock') {
+        roundComputer();
+    } else if (humanChoice === 'scissors' && computerChoice === 'paper') {
+        roundHuman();
+    }
+}
+
+function roundTies() {
+    console.log('The round ties');
+}
+
+function roundComputer() {
+    console.log('The Computer won the round');
+    ++computerScore;
+}
+
+function roundHuman() {
+    console.log('The player won the round')
+    ++humanScore;
+}
+
+playRound(getHumanChoice(), getComputerChoice()); // **DELETE** calling function while developing to test round
 
 
-// -- Gameplay Logic, Full Game
+
+// -- Gameplay Logic, Full Game - playGame()
 
 // Repeat game round for 5 rounds
 // Track scores and compare after 5 rounds
