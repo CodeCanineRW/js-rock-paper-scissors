@@ -46,7 +46,7 @@ function getPlayerSelection() {
 }
 // confirm string entered is a valid choice and log playerSelection
 function getHumanChoice() {
-    let playerSelection = getPlayerSelection().toLowerCase(); // Allow human choice to be case insensitive
+    let playerSelection = getPlayerSelection().toLowerCase().trim(); // Allow human choice to be case insensitive, remove spaces
 
     switch (playerSelection) {
         case 'rock':
@@ -70,7 +70,7 @@ function getHumanChoice() {
         default:    // Prompt again if invalid
             alert(`"${playerSelection}" is not a valid choice. Please try again picking Rock, Paper, or Scissors.`);
             console.log(`User entered: "${playerSelection}" which is not a valid choice.`);
-            getHumanChoice(); // ??? Should this repeat getHumanChoice function or keep separate ???
+            return getHumanChoice(); // ??? New Choice was not evaluating and adding to score, added return ???
             break;
     }
 }
@@ -80,19 +80,17 @@ function getHumanChoice() {
 
 // -- Score Keeping Logic
 
+// Start game with both values at 0
 // Declare variable for Computer's score - computerScore
 let computerScore = 0;
 // Declare variable for Human's score - humanScore
 let humanScore = 0;
-// Start game with both values at 0
 
 
 
 // -- Gameplay Logic, Single Round - playRound(humanChoice, computerChoice)
 
 // Compare selections to determine game result
-// Log round result with win or lose message
-// Increment score per round results
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -112,6 +110,9 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+// Log round result with win or lose message
+// Increment score per round results
+
 function roundTies() {
     console.log('The round ties');
 }
@@ -126,7 +127,7 @@ function roundHuman() {
     ++humanScore;
 }
 
-playRound(getHumanChoice(), getComputerChoice()); // **DELETE** calling function while developing to test round
+// playRound(getHumanChoice(), getComputerChoice()); // **DELETE** calling function while developing to test round
 
 
 
@@ -135,3 +136,33 @@ playRound(getHumanChoice(), getComputerChoice()); // **DELETE** calling function
 // Repeat game round for 5 rounds
 // Track scores and compare after 5 rounds
 // Log and or alert game winner
+
+let numRounds = 1;
+
+function playGame(humanChoice, computerChoice) {
+    if (numRounds < 5) {
+        playRound(humanChoice, computerChoice);
+        console.log('Player Score: ' + humanScore + '  | Computer Score: ' + computerScore + '  | Round: ' + numRounds);
+        ++numRounds;
+        playGame(getHumanChoice(), getComputerChoice());
+    } else if (numRounds = 5) {
+        playRound(humanChoice, computerChoice);
+        console.log('Game Over - Final score is Player: ' + humanScore + '  | Computer: ' + computerScore );
+        declareWinner();
+    }
+}
+
+function declareWinner() {
+    if (humanScore == computerScore) {
+        console.log('The game ends in a tie');
+    } else if (humanScore > computerScore) {
+        console.log('Congratulations, you won!');
+    } else if (humanScore < computerScore) {
+        console.log('You Lost! Better Luck next time');
+    }
+}
+
+// const humanSelection = getHumanChoice();
+// const computerSelection = getComputerChoice();
+
+playGame(getHumanChoice(), getComputerChoice());
