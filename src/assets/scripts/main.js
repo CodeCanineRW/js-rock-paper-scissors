@@ -1,81 +1,52 @@
 // -- Computer Choice Logic - getComputerChoice
 
+
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
 }
+
+let computerChoice;
+
 function getComputerChoice() {
-    let computerChoice = getRandomInt();
+    let randomNum = getRandomInt();
     
-    switch (computerChoice) {
+    switch (randomNum) {
         case 0:
             computerChoice = "rock";
-            console.log('Computer Selects: Rock');
             return "rock";
 
         case 1:
             computerChoice = "paper";
-            console.log('Computer Selects: Paper');
             return "paper";
 
         case 2:
             computerChoice = "scissors";
-            console.log('Computer Selects: Scissors');
             return "scissors";
 
         default:
-            console.log('Computer was unable to make a selection');
             break;
     }
 }
 
-// getComputerChoice(); // **DELETE** calling function while developing to test computer selection
 
 
 
 // -- Human Choice Logic - getHumanChoice
 
-function getPlayerSelection() {
-    return prompt('Make your selection; Rock, Paper, or Scissors?');
-}
-function getHumanChoice() {
-    let playerSelection = getPlayerSelection().toLowerCase().trim();
 
-    switch (playerSelection) {
-        case 'rock':
-            playerSelection = 'rock';
-            console.log('Player Selects: Rock');
-            return 'rock';
+const buttons = document.querySelectorAll("button");
 
-        case 'paper':
-            playerSelection = 'paper';
-            console.log('Player Selects: Paper');
-            return 'paper';
-
-        case 'scissors':
-            playerSelection = 'scissors'
-            console.log('Player Selects: Scissors');
-            return 'scissors';
-
-        default:    // Prompt again if invalid
-            alert(`"${playerSelection}" is not a valid choice. Please try again picking Rock, Paper, or Scissors.`);
-            console.log(`User entered: "${playerSelection}" which is not a valid choice.`);
-            return getHumanChoice(); // ??? New Choice was not evaluating and adding to score, added return ???
-    }
-}
-// getHumanChoice(); // **DELETE** calling function while developing to test human selection
+buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        humanChoice = e.target.id;
+        playRound(humanChoice, getComputerChoice());
+    })
+});
 
 
 
-// -- Score Keeping Logic
+// -- Gameplay Logic, Single Round
 
-let computerScore = 0;
-let humanScore = 0;
-
-
-
-// -- Gameplay Logic, Single Round - playRound(humanChoice, computerChoice)
-
-// Compare selections to determine game result
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -95,56 +66,66 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-// Log round result with win or lose message
-// Increment score per round results
+
+
+// -- Display Results
+
+let numRounds = 0;
+let computerScore = 0;
+let humanScore = 0;
+
+const resultBox = document.getElementById('Result');
+const scoreBox = document.getElementById('Score');
+const gameBox = document.getElementById('Game');
 
 function roundTies() {
-    console.log('   The round ties');
+    numRounds++;
+    resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: The round ties`;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    checkWinner();
 }
 
 function roundComputer() {
-    console.log('   The Computer won the round');
-    ++computerScore;
+    numRounds++;
+    resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: The computer wins the round`;
+    computerScore++;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    checkWinner();
 }
 
 function roundHuman() {
-    console.log('   The player won the round')
-    ++humanScore;
+    numRounds++;
+    resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: You win the round`;
+    humanScore++;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    checkWinner();
 }
 
-// playRound(getHumanChoice(), getComputerChoice()); // **DELETE** calling function while developing to test round
 
 
+// -- Gameplay Logic, Full Game and Results
 
-// -- Gameplay Logic, Full Game - playGame()
 
-
-let numRounds = 1;
-
-function playGame(humanChoice, computerChoice) {
-    if (numRounds < 5) {
-        playRound(humanChoice, computerChoice);
-        console.log('Player Score: ' + humanScore + '  | Computer Score: ' + computerScore + '  | Round: ' + numRounds);
-        ++numRounds;
-        playGame(getHumanChoice(), getComputerChoice());
-    } else if (numRounds = 5) {
-        playRound(humanChoice, computerChoice);
-        console.log('Game Over - Final score is Player: ' + humanScore + '  | Computer: ' + computerScore );
+function checkWinner() {
+    if (humanScore == 5 || computerScore == 5) {
         declareWinner();
+        resetGame();
+    } else {
+        gameBox.textContent = '';
     }
 }
 
 function declareWinner() {
-    if (humanScore == computerScore) {
-        console.log('The game ends in a tie');
-    } else if (humanScore > computerScore) {
-        console.log('Congratulations, you won!');
+    if (humanScore > computerScore) {
+        gameBox.textContent = ` Congratulations, you won!`;
     } else if (humanScore < computerScore) {
-        console.log('You Lost! Better Luck next time');
+        gameBox.textContent = ` You Lost! Better Luck next time`;
     }
 }
 
-// const humanSelection = getHumanChoice();
-// const computerSelection = getComputerChoice();
+function resetGame() {
+    numRounds = 0;
+    humanScore = 0;
+    computerScore = 0;
+}
 
-playGame(getHumanChoice(), getComputerChoice());
