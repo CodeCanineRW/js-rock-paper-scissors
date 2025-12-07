@@ -14,21 +14,16 @@ function getComputerChoice() {
         case 0:
             computerChoice = "rock";
             return "rock";
-
         case 1:
             computerChoice = "paper";
             return "paper";
-
         case 2:
             computerChoice = "scissors";
             return "scissors";
-
         default:
             break;
     }
 }
-
-
 
 
 // -- Human Choice Logic - getHumanChoice
@@ -42,7 +37,6 @@ buttons.forEach((button) => {
         playRound(humanChoice, getComputerChoice());
     })
 });
-
 
 
 // -- Gameplay Logic, Single Round
@@ -67,8 +61,8 @@ function playRound(humanChoice, computerChoice) {
 }
 
 
-
 // -- Display Results
+
 
 let numRounds = 0;
 let computerScore = 0;
@@ -81,7 +75,7 @@ const gameBox = document.getElementById('Game');
 function roundTies() {
     numRounds++;
     resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: The round ties`;
-    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore} Computer: ${computerScore}`;
     checkWinner();
 }
 
@@ -89,7 +83,7 @@ function roundComputer() {
     numRounds++;
     resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: The computer wins the round`;
     computerScore++;
-    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore} Computer: ${computerScore}`;
     checkWinner();
 }
 
@@ -97,10 +91,9 @@ function roundHuman() {
     numRounds++;
     resultBox.textContent = `Your ${humanChoice} vs the computer's ${computerChoice}: You win the round`;
     humanScore++;
-    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore}      Computer: ${computerScore}`;
+    scoreBox.textContent = `Round ${numRounds} - Player: ${humanScore} Computer: ${computerScore}`;
     checkWinner();
 }
-
 
 
 // -- Gameplay Logic, Full Game and Results
