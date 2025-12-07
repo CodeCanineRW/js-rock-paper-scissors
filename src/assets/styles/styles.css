@@ -4,6 +4,7 @@ body {
     text-align: center;
     background-color: black;
     color: #cccccc;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .choices button {
@@ -16,3 +17,15 @@ body {
     border-style: none;
 }
 
+.choices button:hover {
+    background-color: #9aa6b1;
+}
+
+.choices button:active {
+    background-color: #647381;
+}
+
+#Game {
+    font-size: xx-large;
+    color: #a48f7a;
+}
